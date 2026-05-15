@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyWorkoutApp.Pages.ActiveWorkoutPage"
+             Title="אימון פעיל"
+             BackgroundColor="#0d0d1a"
+             FlowDirection="RightToLeft"
+             NavigationPage.HasBackButton="False">
+
+    <Grid RowDefinitions="Auto, Auto, *, Auto">
+
+        <!-- ══════════════════════════════════ TOP BAR ══════════════════════════════════ -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto, *, Auto, Auto"
+              BackgroundColor="#111130"
+              Padding="16,14">
+
+            <!-- Accent glow -->
+            <Ellipse Fill="#3322ff"
+                     Opacity="0.10"
+                     WidthRequest="160"
+                     HeightRequest="160"
+                     HorizontalOptions="End"
+                     VerticalOptions="Start"
+                     Grid.ColumnSpan="4"
+                     Margin="0,-60,-60,0" />
+
+            <!-- Timer -->
+            <VerticalStackLayout Grid.Column="0" Spacing="1" VerticalOptions="Center">
+                <Label Text="זמן אימון"
+                       FontSize="10"
+                       TextColor="#6666aa"
+                       FontAttributes="Bold"
+                       CharacterSpacing="0.5" />
+                <Label x:Name="TimerLabel"
+                       Text="00:00:00"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#3322ff"
+                       FontFamily="Monospace" />
+            </VerticalStackLayout>
+
+            <!-- Workout name -->
+            <Label Grid.Column="1"
+                   x:Name="WorkoutNameLabel"
+                   FontSize="17"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Edit button -->
+            <Button Grid.Column="2"
+                    x:Name="EditModeButton"
+                    Text="ערוך"
+                    Clicked="OnEditModeClicked"
+                    BackgroundColor="Transparent"
+                    TextColor="#ff8800"
+                    BorderColor="#ff880044"
+                    BorderWidth="1"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    CornerRadius="10"
+                    Padding="10,0"
+                    HeightRequest="36"
+                    Margin="0,0,8,0"
+                    VerticalOptions="Center" />
+
+            <!-- Finish button -->
+            <Button Grid.Column="3"
+                    Text="סיים ✓"
+                    Clicked="OnFinishWorkoutClicked"
+                    BackgroundColor="#22bb55"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="13"
+                    CornerRadius="10"
+                    Padding="12,0"
+                    HeightRequest="36"
+                    VerticalOptions="Center" />
+        </Grid>
+
+        <!-- ══════════════════════════════════ ADD EXERCISE BUTTON ══════════════════════════════════ -->
+        <Button Grid.Row="1"
+                x:Name="AddExerciseButton"
+                IsVisible="False"
+                Text="＋ הוסף תרגיל"
+                Clicked="OnAddExerciseClicked"
+                BackgroundColor="Transparent"
+                TextColor="#3322ff"
+                FontAttributes="Bold"
+                FontSize="14"
+                CornerRadius="12"
+                Padding="0,11"
+                BorderColor="#3322ff44"
+                BorderWidth="1"
+                Margin="16,12,16,0" />
+
+        <!-- ══════════════════════════════════ EXERCISES LIST ══════════════════════════════════ -->
+        <ScrollView Grid.Row="2" Margin="0,10,0,0">
+            <VerticalStackLayout x:Name="ExercisesContainer"
+                                 Spacing="12"
+                                 Padding="16,0,16,16" />
+        </ScrollView>
+
+        <!-- ══════════════════════════════════ HINT BAR ══════════════════════════════════ -->
+        <Label Grid.Row="3"
+               Text="לחץ על + ליד תרגיל להוספת סט  •  לחץ על ✓ לסיום האימון"
+               FontSize="11"
+               TextColor="#44447a"
+               HorizontalOptions="Center"
+               Margin="0,6,0,10" />
+
+        <!-- ══════════════════════════════════ ZOOM OVERLAY ══════════════════════════════════ -->
+        <Grid x:Name="ZoomOverlay"
+              IsVisible="False"
+              BackgroundColor="#CC000000"
+              Grid.RowSpan="4">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseZoomClicked" />
+            </Grid.GestureRecognizers>
+            <Frame BackgroundColor="#161630"
+                   BorderColor="#2a2a55"
+                   CornerRadius="20"
+                   Padding="12"
+                   Margin="30"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
+                <Image x:Name="ZoomImage"
+                       Aspect="AspectFit"
+                       MaximumHeightRequest="400" />
+            </Frame>
+        </Grid>
+
+    </Grid>
+</ContentPage>

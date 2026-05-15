@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="MyWorkoutApp.Pages.ProfilePage"
+             BackgroundColor="#0d0d1a"
+             FlowDirection="RightToLeft">
+
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Spacing="0" Padding="0,0,0,32">
+
+                <Grid>
+                    <BoxView HeightRequest="210" Color="#111130" VerticalOptions="Fill" />
+
+                    <Image Source="logo.png"
+                           WidthRequest="60"
+                           HeightRequest="60"
+                           HorizontalOptions="End" 
+                           VerticalOptions="Start"
+                           Margin="0,36,20,0" />
+
+                    <Ellipse Fill="#3322ff" Opacity="0.12" WidthRequest="220" HeightRequest="220"
+                             HorizontalOptions="End" VerticalOptions="Start" Margin="0,-60,-80,0" />
+
+                    <VerticalStackLayout Padding="20,36,20,20" Spacing="16" HorizontalOptions="Fill">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="הפרופיל שלי" FontSize="30" FontAttributes="Bold" TextColor="White" CharacterSpacing="-0.5" />
+                            <Label Text="הגדרות אישיות ונתוני ביצועים" FontSize="15" TextColor="#6666aa" />
+                        </VerticalStackLayout>
+
+                        <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+
+                            <Grid HeightRequest="80" WidthRequest="80">
+                                <Frame CornerRadius="40" Padding="0" IsClippedToBounds="True" BorderColor="#3322ff" BackgroundColor="#161630" HasShadow="False">
+                                    <Image x:Name="ProfileImage" Source="tab_person.png" Aspect="AspectFill" />
+                                </Frame>
+                                <Frame BackgroundColor="#161630" BorderColor="#44447a" CornerRadius="14" HeightRequest="28" WidthRequest="28" Padding="0" VerticalOptions="End" HorizontalOptions="End" Margin="-2,-2,0,0" HasShadow="True">
+                                    <Label Text="📷" FontSize="13" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnPickImageClicked" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </Grid>
+
+                            <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                                <Label Text="שם מלא" FontSize="11" TextColor="#6666aa" FontAttributes="Bold" CharacterSpacing="0.5" />
+                                <Entry x:Name="NameEntry" Text="מתאמן" MaxLength="16" FontSize="22" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Unfocused="OnProfileDataChanged" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                                <Label Text="מין" FontSize="11" TextColor="#6666aa" FontAttributes="Bold" CharacterSpacing="0.5" />
+                                <Frame BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="8" Padding="10,0" HasShadow="False" HeightRequest="40">
+                                    <Picker x:Name="GenderPicker" TextColor="White" TitleColor="#44447a" BackgroundColor="Transparent" FontSize="15" SelectedIndexChanged="OnProfileDataChanged" VerticalOptions="Center">
+                                        <Picker.Items>
+                                            <x:String>זכר</x:String>
+                                            <x:String>נקבה</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Frame>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <Frame BackgroundColor="#161630" CornerRadius="20" BorderColor="#2a2a55" Padding="20,18" Margin="16,12,16,0" HasShadow="False">
+                    <VerticalStackLayout Spacing="16">
+                        <Grid ColumnDefinitions="*,Auto,Auto">
+                            <VerticalStackLayout Grid.Column="0" Spacing="1">
+                                <Label Text="⚖️  מעקב משקל גוף" FontSize="16" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="עקוב אחרי התקדמות המשקל שלך" FontSize="12" TextColor="#6666aa" />
+                            </VerticalStackLayout>
+                            <Button Grid.Column="1" x:Name="EditWeightBtn" Text="ערוך" Clicked="OnEditWeightClicked" BackgroundColor="Transparent" TextColor="#ff8800" FontSize="12" FontAttributes="Bold" Padding="10,0" Margin="0,0,10,0" VerticalOptions="Center" />
+                            <Frame Grid.Column="2" BackgroundColor="#1a1a3a" BorderColor="#3322ff" CornerRadius="12" Padding="12,8" HasShadow="False" VerticalOptions="Center">
+                                <Label x:Name="CurrentWeightPill" Text="--" FontSize="16" FontAttributes="Bold" TextColor="#8888ff" />
+                            </Frame>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2a2a55" Margin="0,-4,0,0" />
+
+                        <Button x:Name="ClearAllWeightsBtn" IsVisible="False" Text="מחק את כל השקילות 🗑️" Clicked="OnClearAllWeightsClicked" BackgroundColor="#2a1010" TextColor="#ff5555" BorderColor="#ff5555" BorderWidth="1" CornerRadius="12" HeightRequest="40" Margin="0,-5,0,5" />
+
+                        <Grid ColumnDefinitions="*, Auto, Auto" ColumnSpacing="10">
+                            <Frame Grid.Column="0" BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="12" Padding="14,0" HasShadow="False">
+                                <Entry x:Name="NewWeightEntry" Placeholder="משקל חדש (ק״ג)" PlaceholderColor="#44447a" TextColor="White" Keyboard="Numeric" FontSize="16" BackgroundColor="Transparent" />
+                            </Frame>
+                            <Frame Grid.Column="1" BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="12" Padding="10,0" HasShadow="False" WidthRequest="100">
+                                <DatePicker x:Name="WeightDatePicker" Date="{x:Static sys:DateTime.Now}" TextColor="White" BackgroundColor="Transparent" FontSize="13" />
+                            </Frame>
+                            <Button Grid.Column="2" Text="➕" Clicked="OnAddWeightClicked" BackgroundColor="#22cc66" TextColor="White" FontSize="20" CornerRadius="12" HeightRequest="46" WidthRequest="50" Padding="0" />
+                        </Grid>
+
+                        <VerticalStackLayout Spacing="8">
+                            <Label x:Name="ChartNoDataLabel" Text="📉  הוסף נתוני משקל כדי לראות גרף" FontSize="13" TextColor="#6666aa" HorizontalOptions="Center" Margin="0,20" IsVisible="True" />
+                            <GraphicsView x:Name="WeightChartView" HeightRequest="180" IsVisible="False" FlowDirection="LeftToRight" HorizontalOptions="Fill" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout x:Name="WeightHistoryContainer" Spacing="6" />
+
+                        <Button x:Name="SeeAllWeightsBtn" Text="צפה בכל היסטוריית השקילות" BackgroundColor="Transparent" TextColor="#3322ff" FontAttributes="Bold" Clicked="OnSeeAllWeightsClicked" IsVisible="False" Margin="0,5,0,0"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="#161630" CornerRadius="20" BorderColor="#2a2a55" Padding="20,18" Margin="16,14,16,0" HasShadow="False">
+                    <VerticalStackLayout Spacing="16">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="📊" FontSize="18" VerticalOptions="Center" />
+                            <VerticalStackLayout Spacing="1">
+                                <Label Text="מטרת אימון" FontSize="16" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="הגדר את המטרה שלך" FontSize="12" TextColor="#6666aa" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <BoxView HeightRequest="1" Color="#2a2a55" Margin="0,-4,0,0" />
+
+                        <Frame BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="12" Padding="10,0" HasShadow="False">
+                            <Picker x:Name="GoalPicker" Title="בחר מטרה" TextColor="White" TitleColor="#44447a" BackgroundColor="Transparent" FontSize="15" SelectedIndexChanged="OnProfileDataChanged">
+                                <Picker.Items>
+                                    <x:String>חיטוב 📉</x:String>
+                                    <x:String>מסה 📈</x:String>
+                                    <x:String>שמירה ⚖️</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Frame>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="#161630" CornerRadius="20" BorderColor="#3322ff44" Padding="20,18" Margin="16,14,16,0" HasShadow="False">
+                    <VerticalStackLayout Spacing="16">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="💪" FontSize="20" VerticalOptions="Center" />
+                            <VerticalStackLayout Spacing="1">
+                                <Label Text="מחשבון חזרה מקסימלית (1RM)" FontSize="16" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="לפי ביצועים בסט האחרון" FontSize="12" TextColor="#6666aa" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <BoxView HeightRequest="1" Color="#2a2a55" Margin="0,-4,0,0" />
+                        <Grid ColumnDefinitions="*, *, Auto" ColumnSpacing="10">
+                            <Frame Grid.Column="0" BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="12" Padding="14,0" HasShadow="False">
+                                <Entry x:Name="RmWeightEntry" Placeholder="משקל (ק״ג)" PlaceholderColor="#44447a" Keyboard="Numeric" TextColor="White" FontSize="15" BackgroundColor="Transparent" />
+                            </Frame>
+                            <Frame Grid.Column="1" BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="12" Padding="14,0" HasShadow="False">
+                                <Entry x:Name="RmRepsEntry" Placeholder="חזרות" PlaceholderColor="#44447a" Keyboard="Numeric" TextColor="White" FontSize="15" BackgroundColor="Transparent" />
+                            </Frame>
+                            <Button Grid.Column="2" Text="חשב" Clicked="OnCalculateRmClicked" BackgroundColor="#3322ff" TextColor="White" FontAttributes="Bold" FontSize="14" CornerRadius="12" HeightRequest="46" WidthRequest="70" Padding="0" />
+                        </Grid>
+                        <Label x:Name="RmResultLabel" Text="" HorizontalOptions="Center" FontSize="22" FontAttributes="Bold" TextColor="#ff8800" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="#161630" CornerRadius="20" BorderColor="#2a2a55" Padding="20,18" Margin="16,14,16,0" HasShadow="False">
+                    <VerticalStackLayout Spacing="16">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="⚙️" FontSize="18" VerticalOptions="Center" />
+                            <VerticalStackLayout Spacing="1">
+                                <Label Text="הגדרות כלליות" FontSize="16" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="הגדרות ברירת מחדל לאימונים" FontSize="12" TextColor="#6666aa" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <BoxView HeightRequest="1" Color="#2a2a55" Margin="0,-4,0,0" />
+
+                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
+                            <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
+                                <Label Text="משקל מוט ברירת מחדל" FontSize="14" TextColor="White" />
+                                <Label Text="ק״ג" FontSize="11" TextColor="#6666aa" />
+                            </VerticalStackLayout>
+                            <Frame Grid.Column="1" BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="12" Padding="10,0" HasShadow="False" WidthRequest="100">
+                                <Picker x:Name="BarWeightPicker" Title="בחר מוט" TextColor="White" TitleColor="#44447a" BackgroundColor="Transparent" FontSize="15" SelectedIndexChanged="OnProfileDataChanged" VerticalOptions="Center">
+                                    <Picker.Items>
+                                        <x:String>15 ק״ג</x:String>
+                                        <x:String>20 ק״ג</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Frame>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2a2a55" />
+
+                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
+                            <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
+                                <Label Text="תרגיל אהוב לגרפים" FontSize="14" TextColor="White" />
+                                <Label x:Name="FavExerciseLabel" Text="" FontSize="11" TextColor="#6666aa" />
+                            </VerticalStackLayout>
+
+                            <HorizontalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Center">
+                                <Button Text="שינוי" Clicked="OnChangeFavoriteClicked" BackgroundColor="#2a2a55" TextColor="#aaaacc" FontSize="12" FontAttributes="Bold" CornerRadius="8" Padding="14,0" HeightRequest="36" VerticalOptions="Center" />
+
+                                <Frame BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="8" Padding="0" IsClippedToBounds="True" HeightRequest="46" WidthRequest="64" VerticalOptions="Center">
+                                    <Image x:Name="FavExerciseImg" Aspect="AspectFit">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnImageZoomClicked" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </Frame>
+                            </HorizontalStackLayout>
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Grid x:Name="ZoomOverlay" IsVisible="False" BackgroundColor="#CC000000">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseZoomClicked" />
+            </Grid.GestureRecognizers>
+            <Frame BackgroundColor="#161630" BorderColor="#2a2a55" CornerRadius="20" Padding="12" Margin="30" VerticalOptions="Center" HorizontalOptions="Center">
+                <Image x:Name="ZoomImage" Aspect="AspectFit" MaximumHeightRequest="400" />
+            </Frame>
+        </Grid>
+
+        <Grid x:Name="FavExerciseOverlay" IsVisible="False" BackgroundColor="#CC000000">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCancelFavOverlay" />
+            </Grid.GestureRecognizers>
+            <Frame BackgroundColor="#161630" BorderColor="#3322ff" CornerRadius="20" Padding="20" Margin="30" VerticalOptions="Center" HorizontalOptions="Center" HasShadow="True">
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="בחירת תרגיל אהוב" FontSize="18" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                    <Label Text="כיצד תרצה שהאפליקציה תבחר את התרגיל המוצג בגרפים של דף הבית?" FontSize="13" TextColor="#aaaacc" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <BoxView HeightRequest="1" Color="#2a2a55" />
+
+                    <Button Text="🔍 בחירה ידנית" Clicked="OnManualFavSelected" BackgroundColor="#3322ff" TextColor="White" FontAttributes="Bold" CornerRadius="12" HeightRequest="48" />
+                    <Button Text="🤖 מצב אוטומטי" Clicked="OnAutoFavSelected" BackgroundColor="#1a1a3a" TextColor="#8888ff" FontAttributes="Bold" CornerRadius="12" HeightRequest="48" />
+
+                    <Button Text="ביטול" Clicked="OnCancelFavOverlay" BackgroundColor="Transparent" TextColor="#ff5555" Margin="0,8,0,0" HeightRequest="40" />
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+
+    </Grid>
+</ContentPage>

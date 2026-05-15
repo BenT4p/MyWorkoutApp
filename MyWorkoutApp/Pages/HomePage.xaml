@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyWorkoutApp.Pages.HomePage"
+             BackgroundColor="#0d0d1a"
+             FlowDirection="RightToLeft">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0" Padding="0,0,0,32">
+
+            <Grid>
+                <BoxView HeightRequest="180" Color="#111130" VerticalOptions="Fill" />
+
+                <Ellipse Fill="#3322ff" Opacity="0.12" WidthRequest="220" HeightRequest="220"
+                         HorizontalOptions="End" VerticalOptions="Start" Margin="0,-60,-80,0" />
+
+                <Grid ColumnDefinitions="*, 80" Padding="20,36,20,24">
+
+                    <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
+                        <Label x:Name="GreetingLabel" 
+                               Text="בוקר טוב! ☀️" 
+                               FontSize="26" 
+                               FontAttributes="Bold"
+                               TextColor="White" 
+                               CharacterSpacing="-0.5" 
+                               LineBreakMode="WordWrap" />
+
+                        <Label x:Name="TipLabel" 
+                               Text="טוען טיפ..." 
+                               FontSize="14" 
+                               TextColor="#6666aa" 
+                               LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+
+                    <Image Grid.Column="1" 
+                           Source="logo.png"
+                           WidthRequest="60"
+                           HeightRequest="60"
+                           HorizontalOptions="End" 
+                           VerticalOptions="Start" />
+                </Grid>
+            </Grid>
+
+            <Frame BackgroundColor="#161630" CornerRadius="20" BorderColor="#2a2a55"
+                   Padding="20,16" Margin="16,12,16,0" HasShadow="False">
+                <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto,16,Auto">
+                    <VerticalStackLayout Grid.Column="0" Grid.Row="0" Spacing="2">
+                        <Label Text="🔥  רצף אימונים" FontSize="13" TextColor="#6666aa" FontAttributes="Bold" CharacterSpacing="0.5" />
+                        <Label x:Name="StreakLabel" Text="0 ימים ברצף" FontSize="26" FontAttributes="Bold" TextColor="White" />
+                    </VerticalStackLayout>
+
+                    <Frame Grid.Column="1" Grid.Row="0" BackgroundColor="#ff880022" BorderColor="#ff880066"
+                           CornerRadius="12" Padding="12,6" VerticalOptions="Center">
+                        <Label x:Name="WeeklyCountLabel" Text="0 השבוע" FontSize="13" FontAttributes="Bold" TextColor="#ff8800" />
+                    </Frame>
+
+                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="1" Color="#2a2a55" Margin="0,6" />
+
+                    <HorizontalStackLayout x:Name="WeeklyCalendarContainer" Grid.Row="2" Grid.ColumnSpan="2"
+                                         HorizontalOptions="Center" Spacing="10" />
+                </Grid>
+            </Frame>
+
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10" Margin="16,14,16,0">
+
+                <Frame Grid.Column="0" BackgroundColor="#161630" CornerRadius="16" BorderColor="#2a2a55"
+                       Padding="10,12" HasShadow="False">
+                    <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                        <Label Text="🏋️" FontSize="20" HorizontalOptions="Center" />
+                        <Label x:Name="TotalWorkoutsLabel" Text="0" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                        <Label Text="אימונים" FontSize="11" TextColor="#6666aa" HorizontalOptions="Center" />
+                        <Label Text="מאז ומתמיד" FontSize="9" TextColor="#44447a" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Column="1" BackgroundColor="#161630" CornerRadius="16" BorderColor="#2a2a55"
+                       Padding="10,12" HasShadow="False">
+                    <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                        <Label Text="📋" FontSize="20" HorizontalOptions="Center" />
+                        <Label x:Name="TotalSetsLabel" Text="0" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                        <Label Text="סטים" FontSize="11" TextColor="#6666aa" HorizontalOptions="Center" />
+                        <Label Text="מאז ומתמיד" FontSize="9" TextColor="#44447a" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Column="2" BackgroundColor="#161630" CornerRadius="16" BorderColor="#2a2a55"
+                       Padding="10,12" HasShadow="False">
+                    <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                        <Label Text="🔥" FontSize="20" HorizontalOptions="Center" />
+                        <Label x:Name="GlobalStreakLabel" Text="0" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                        <Label Text="סטריק אימונים שבועי" FontSize="11" TextColor="#6666aa" HorizontalOptions="Center" />
+                        <Label Text="שיא נוכחי" FontSize="9" TextColor="#44447a" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <Frame BackgroundColor="#161630" CornerRadius="20" BorderColor="#2a2a55" Padding="20,18" Margin="16,14,16,0" HasShadow="False">
+                <VerticalStackLayout Spacing="14">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label x:Name="ChartTitleLabel" Text="התקדמות — טוען..." FontSize="15" FontAttributes="Bold" TextColor="White" />
+                            <Label x:Name="ChartSubtitleLabel" Text="משקל מקסימלי לאימון (ק״ג)" FontSize="12" TextColor="#6666aa" />
+                        </VerticalStackLayout>
+
+                        <Frame Grid.Column="1" BackgroundColor="#0d0d1a" CornerRadius="10" BorderColor="#2a2a55" Padding="4" HasShadow="False">
+                            <HorizontalStackLayout Spacing="2">
+                                <Button x:Name="ChartToggleWeightBtn" Text="משקל" FontSize="11" BackgroundColor="#3322ff" TextColor="White" CornerRadius="8" Padding="8,4" HeightRequest="30" Clicked="OnChartToggleWeight" />
+                                <Button x:Name="ChartToggleSetsBtn" Text="סטים" FontSize="11" BackgroundColor="Transparent" TextColor="#6666aa" CornerRadius="8" Padding="8,4" HeightRequest="30" Clicked="OnChartToggleSets" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </Grid>
+
+                    <GraphicsView x:Name="ProgressChart" HeightRequest="160" FlowDirection="LeftToRight" HorizontalOptions="Fill" />
+
+                    <VerticalStackLayout x:Name="ChartNoDataLayout" IsVisible="False" HorizontalOptions="Center" Spacing="6">
+                        <Label Text="📉" FontSize="32" HorizontalOptions="Center" />
+                        <Label Text="אין עדיין היסטוריית אימונים" FontSize="13" TextColor="#6666aa" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#161630" CornerRadius="20" BorderColor="#2a2a55" Padding="20,16" Margin="16,14,16,0" HasShadow="False">
+                <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
+                    <VerticalStackLayout Grid.Column="0" Spacing="4">
+                        <Label Text="תרגיל אהוב" FontSize="13" TextColor="#6666aa" FontAttributes="Bold" />
+                        <Label x:Name="FavoriteExerciseLabel" Text="אין עדיין" FontSize="18" FontAttributes="Bold" TextColor="White" />
+                        <Label x:Name="FavoriteExerciseStatsLabel" Text="" FontSize="12" TextColor="#22cc66" />
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="💪" FontSize="38" VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+
+            <Frame BackgroundColor="#161630" CornerRadius="20" BorderColor="#3322ff44" Padding="20,18" Margin="16,14,16,0" HasShadow="False">
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="" FontSize="20" VerticalOptions="Center" />
+                        <VerticalStackLayout Spacing="1">
+                            <Label Text="מחשבון פלטות" FontSize="16" FontAttributes="Bold" TextColor="White" />
+                            <Label Text="כמה לשים על הבר? נסו אותי!" FontSize="12" TextColor="#6666aa" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                        <Frame Grid.Column="0" BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="12" Padding="14,0" HasShadow="False">
+                            <Entry x:Name="PlateTargetEntry" Placeholder="משקל יעד (ק״ג)" PlaceholderColor="#44447a" TextColor="White" Keyboard="Numeric" FontSize="16" BackgroundColor="Transparent" TextChanged="OnPlateTargetChanged" />
+                        </Frame>
+                        <Frame Grid.Column="1" BackgroundColor="#0d0d1a" BorderColor="#2a2a55" CornerRadius="12" Padding="10,0" HasShadow="False" WidthRequest="90">
+                            <Picker x:Name="BarWeightPicker" Title="בר" TextColor="White" TitleColor="#44447a" BackgroundColor="Transparent" FontSize="14" SelectedIndexChanged="OnPlateTargetChanged">
+                                <Picker.Items>
+                                    <x:String>15 ק״ג</x:String>
+                                    <x:String>20 ק״ג</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Frame>
+                    </Grid>
+
+                    <GraphicsView x:Name="BarbellView" HeightRequest="80" FlowDirection="LeftToRight" HorizontalOptions="Fill" />
+                    <VerticalStackLayout x:Name="PlatesResultContainer" Spacing="8" />
+                    <Label x:Name="PlateInfoLabel" Text="הזן משקל יעד כדי לחשב" FontSize="13" TextColor="#44447a" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

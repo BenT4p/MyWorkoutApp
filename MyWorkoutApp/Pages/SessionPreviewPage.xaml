@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyWorkoutApp.Pages.SessionPreviewPage"
+             Title="סיכום אימון"
+             BackgroundColor="#0d0d1a"
+             FlowDirection="RightToLeft">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <Grid Grid.Row="0">
+            <BoxView HeightRequest="180"
+                     Color="#111130"
+                     VerticalOptions="Fill" />
+
+            <Ellipse Fill="#3322ff"
+                     Opacity="0.12"
+                     WidthRequest="220"
+                     HeightRequest="220"
+                     HorizontalOptions="End"
+                     VerticalOptions="Start"
+                     Margin="0,-70,-80,0" />
+
+            <Grid ColumnDefinitions="*, Auto"
+                  Padding="20,36,16,18"
+                  VerticalOptions="Fill">
+
+                <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
+                    <Label Text="סיכום אימון 🏆"
+                           FontSize="26"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           CharacterSpacing="-0.5" />
+                    <Label x:Name="SessionNameLabel"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="#aaaacc" />
+                    <Label x:Name="SessionDateLabel"
+                           FontSize="12"
+                           TextColor="#6666aa" />
+                </VerticalStackLayout>
+
+                <Button Grid.Column="1"
+                        Text="✕ חזור"
+                        Clicked="OnBackClicked"
+                        BackgroundColor="Transparent"
+                        TextColor="#ff5555"
+                        BorderColor="#ff555544"
+                        BorderWidth="1"
+                        FontAttributes="Bold"
+                        FontSize="13"
+                        CornerRadius="10"
+                        Padding="12,0"
+                        HeightRequest="36"
+                        VerticalOptions="Center" />
+            </Grid>
+        </Grid>
+
+        <ScrollView Grid.Row="1" Margin="0,8,0,0">
+            <VerticalStackLayout x:Name="ExercisesContainer"
+                                 Spacing="12"
+                                 Padding="16,0,16,16" />
+        </ScrollView>
+
+        <Grid x:Name="ZoomOverlay"
+              IsVisible="False"
+              BackgroundColor="#CC000000"
+              Grid.RowSpan="2">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseZoomClicked" />
+            </Grid.GestureRecognizers>
+            <Frame BackgroundColor="#161630"
+                   BorderColor="#2a2a55"
+                   CornerRadius="20"
+                   Padding="12"
+                   Margin="30"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
+                <Image x:Name="ZoomImage"
+                       Aspect="AspectFit"
+                       MaximumHeightRequest="400" />
+            </Frame>
+        </Grid>
+
+    </Grid>
+</ContentPage>

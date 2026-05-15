@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyWorkoutApp.Pages.SelectExercisePage"
+             Title="בחר תרגיל"
+             BackgroundColor="#0d0d1a"
+             FlowDirection="RightToLeft">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <Grid Grid.Row="0">
+            <BoxView HeightRequest="180" Color="#111130" VerticalOptions="Fill" />
+            <Ellipse Fill="#3322ff" Opacity="0.12" WidthRequest="200" HeightRequest="200"
+                     HorizontalOptions="End" VerticalOptions="Start" Margin="0,-60,-70,0" />
+            <VerticalStackLayout Padding="20,36,20,20" Spacing="4">
+                <Label Text="בחר תרגיל 💪" FontSize="26" FontAttributes="Bold" TextColor="White" CharacterSpacing="-0.5" />
+                <Label Text="חפש לפי שם או קבוצת שרירים" FontSize="13" TextColor="#6666aa" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <Frame Grid.Row="1" BackgroundColor="#161630" BorderColor="#2a2a55" CornerRadius="14" Padding="4,0" Margin="16,10,16,4" HasShadow="False">
+            <SearchBar x:Name="ExerciseSearchBar" Placeholder="חיפוש תרגיל או שריר..." TextChanged="OnSearchBarTextChanged"
+                       CancelButtonColor="#3322ff" PlaceholderColor="#44447a" TextColor="White" BackgroundColor="Transparent" />
+        </Frame>
+
+        <CollectionView Grid.Row="2" x:Name="ExercisesCollection" Margin="0,4,0,0" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="16,5" Padding="14,12" CornerRadius="18" BackgroundColor="#161630" HasShadow="False" BorderColor="#2a2a55">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnExerciseTapped" />
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="*, 100" ColumnSpacing="10">
+                            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" Spacing="4">
+                                <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="White" LineBreakMode="TailTruncation" />
+                                <Label Text="{Binding MuscleGroup}" FontSize="12" TextColor="#6666aa" />
+                            </VerticalStackLayout>
+                            <Frame Grid.Column="1" Padding="0" CornerRadius="12" Margin="0,2" IsClippedToBounds="True" BackgroundColor="#0d0d1a" BorderColor="#2a2a55">
+                                <Image Source="{Binding ImagePath}" Aspect="AspectFit">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnImageZoomClicked" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Frame>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid x:Name="ZoomOverlay" IsVisible="False" BackgroundColor="#CC000000" Grid.RowSpan="3">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseZoomClicked" />
+            </Grid.GestureRecognizers>
+            <Frame BackgroundColor="#161630" BorderColor="#2a2a55" CornerRadius="20" Padding="12" Margin="30" VerticalOptions="Center" HorizontalOptions="Center">
+                <Image x:Name="ZoomImage" Aspect="AspectFit" MaximumHeightRequest="400" />
+            </Frame>
+        </Grid>
+
+    </Grid>
+</ContentPage>

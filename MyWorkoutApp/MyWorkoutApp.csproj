@@ -1,0 +1,203 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+
+		<!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>MyWorkoutApp</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>Vannabolic</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.myworkoutapp</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<MauiIcon Include="Resources\AppIcon\appicon.png" />
+
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#0d0d1a" BaseSize="128,128" />
+		<MauiImage Include="Resources\Images\*" />
+		<MauiFont Include="Resources\Fonts\*" />
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\arnold_press.webp" />
+	  <None Remove="Resources\Images\barbell_curl.webp" />
+	  <None Remove="Resources\Images\barbell_hip_thrust.webp" />
+	  <None Remove="Resources\Images\barbell_squat.webp" />
+	  <None Remove="Resources\Images\bench_dips.webp" />
+	  <None Remove="Resources\Images\bench_press_barbell.webp" />
+	  <None Remove="Resources\Images\bench_press_dumbbell.webp" />
+	  <None Remove="Resources\Images\bent_over_row_barbell.webp" />
+	  <None Remove="Resources\Images\bicycle_crunches.webp" />
+	  <None Remove="Resources\Images\bulgarian_split_squat.webp" />
+	  <None Remove="Resources\Images\cable_crossover.webp" />
+	  <None Remove="Resources\Images\cable_crunches.webp" />
+	  <None Remove="Resources\Images\cable_curl.webp" />
+	  <None Remove="Resources\Images\cable_glute_kickback.webp" />
+	  <None Remove="Resources\Images\close_grip_bench_press.webp" />
+	  <None Remove="Resources\Images\concentration_curl.webp" />
+	  <None Remove="Resources\Images\crunches.webp" />
+	  <None Remove="Resources\Images\deadlift.webp" />
+	  <None Remove="Resources\Images\decline_bench_press.webp" />
+	  <None Remove="Resources\Images\dumbbell_curl.webp" />
+	  <None Remove="Resources\Images\dumbbell_fly.webp" />
+	  <None Remove="Resources\Images\dumbbell_pullover.webp" />
+	  <None Remove="Resources\Images\dumbbell_shoulder_press.webp" />
+	  <None Remove="Resources\Images\front_raise.webp" />
+	  <None Remove="Resources\Images\front_squat.webp" />
+	  <None Remove="Resources\Images\goblet_squat.webp" />
+	  <None Remove="Resources\Images\hammer_curl.webp" />
+	  <None Remove="Resources\Images\hanging_leg_raises.webp" />
+	  <None Remove="Resources\Images\hip_abduction_machine.webp" />
+	  <None Remove="Resources\Images\incline_bench_barbell.webp" />
+	  <None Remove="Resources\Images\incline_bench_dumbbell.webp" />
+	  <None Remove="Resources\Images\incline_dumbbell_curl.webp" />
+	  <None Remove="Resources\Images\lateral_raise_cable.webp" />
+	  <None Remove="Resources\Images\lateral_raise_dumbbell.webp" />
+	  <None Remove="Resources\Images\lat_pulldown.webp" />
+	  <None Remove="Resources\Images\lat_pulldown_close_grip.webp" />
+	  <None Remove="Resources\Images\leg_extension.webp" />
+	  <None Remove="Resources\Images\leg_press.webp" />
+	  <None Remove="Resources\Images\logo.png" />
+	  <None Remove="Resources\Images\lying_leg_curl.webp" />
+	  <None Remove="Resources\Images\machine_hip_thrust.webp" />
+	  <None Remove="Resources\Images\overhead_tricep_extension.webp" />
+	  <None Remove="Resources\Images\pec_deck_fly.webp" />
+	  <None Remove="Resources\Images\plank.webp" />
+	  <None Remove="Resources\Images\preacher_curl.webp" />
+	  <None Remove="Resources\Images\pull_ups.webp" />
+	  <None Remove="Resources\Images\push_ups.webp" />
+	  <None Remove="Resources\Images\rear_delt_fly.webp" />
+	  <None Remove="Resources\Images\reverse_bicep_curl.webp" />
+	  <None Remove="Resources\Images\romanian_deadlift_barbell.webp" />
+	  <None Remove="Resources\Images\romanian_deadlift_dumbbell.webp" />
+	  <None Remove="Resources\Images\seated_cable_row.webp" />
+	  <None Remove="Resources\Images\seated_calf_raise.webp" />
+	  <None Remove="Resources\Images\seated_leg_curl.webp" />
+	  <None Remove="Resources\Images\shrugs.webp" />
+	  <None Remove="Resources\Images\single_arm_dumbbell_row.webp" />
+	  <None Remove="Resources\Images\skull_crushers.webp" />
+	  <None Remove="Resources\Images\standing_calf_raise.webp" />
+	  <None Remove="Resources\Images\straight_arm_pulldown.webp" />
+	  <None Remove="Resources\Images\tricep_dips.webp" />
+	  <None Remove="Resources\Images\tricep_kickback.webp" />
+	  <None Remove="Resources\Images\tricep_pushdown_bar.webp" />
+	  <None Remove="Resources\Images\tricep_pushdown_rope.webp" />
+	  <None Remove="Resources\Images\t_bar_row.webp" />
+	  <None Remove="Resources\Images\upright_row.webp" />
+	  <None Remove="Resources\Images\walking_lunges.webp" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\HomePage.xaml.cs">
+	    <DependentUpon>HomePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\CreateTemplatePage.xaml.cs">
+	    <DependentUpon>CreateTemplatePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ActiveWorkoutPage.xaml.cs">
+	    <DependentUpon>ActiveWorkoutPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\MyWorkoutPage.xaml.cs">
+	    <DependentUpon>MyWorkoutPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\EditTemplatePage.xaml.cs">
+	    <DependentUpon>EditTemplatePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\SplashPage.xaml.cs">
+	    <DependentUpon>SplashPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\WeightHistoryPage.xaml.cs">
+	    <DependentUpon>WeightHistoryPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\SessionPreviewPage.xaml.cs">
+	    <DependentUpon>SessionPreviewPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\SelectExercisesPage.xaml.cs">
+	    <DependentUpon>SelectExercisesPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ProfilePage.xaml.cs">
+	    <DependentUpon>ProfilePage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\CreateTemplatePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ActiveWorkoutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\MyWorkoutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\EditTemplatePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SplashPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\WeightHistoryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SessionPreviewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SelectExercisesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ProfilePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>

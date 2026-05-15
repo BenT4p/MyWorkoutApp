@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:MyWorkoutApp.Pages"
+       x:Class="MyWorkoutApp.AppShell"
+       FlowDirection="RightToLeft"
+       Shell.NavBarIsVisible="False">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="TabBarBackgroundColor">#1a1a2e</Color>
+            <Color x:Key="TabBarForegroundColor">#6c47ff</Color>
+            <Color x:Key="TabBarUnselectedColor">#8888aa</Color>
+            <Color x:Key="TabBarTitleColor">#6c47ff</Color>
+
+            <Style TargetType="TabBar">
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource TabBarBackgroundColor}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource TabBarForegroundColor}" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TabBarUnselectedColor}" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource TabBarTitleColor}" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+    
+    <TabBar>
+        <Tab Title="בית" Icon="tab_home.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
+        </Tab>
+
+        <Tab Title="אימונים" Icon="tab_dumbbell.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:MyWorkoutsPage}" />
+        </Tab>
+
+        <Tab Title="פרופיל" Icon="tab_person.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:ProfilePage}" />
+        </Tab>
+    </TabBar>
+
+</Shell>
